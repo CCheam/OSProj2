@@ -12,7 +12,7 @@ static free_block *HEAD = NULL; /**< Pointer to the first element of the free li
 
 /**
  * Split a free block into two blocks
- *
+ *a
  * @param block The block to split
  * @param size The size of the first new split block
  * @return A pointer to the first block or NULL if the block cannot be split
