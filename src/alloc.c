@@ -1,5 +1,4 @@
 #include "alloc.h"
-
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,11 +11,12 @@ static free_block *HEAD = NULL; /**< Pointer to the first element of the free li
 
 /**
  * Split a free block into two blocks
- *a
+ *
  * @param block The block to split
  * @param size The size of the first new split block
  * @return A pointer to the first block or NULL if the block cannot be split
  */
+
 void *split(free_block *block, int size) {
     if((block->size < size + sizeof(free_block))) {
         return NULL;
@@ -137,7 +137,16 @@ void *coalesce(free_block *block) {
  * @return A pointer to the allocated memory
  */
 void *do_alloc(size_t size) {
-    return NULL;
+    size_t size_sum = size + sizeof(free_block);
+    void *ptr = sbrk(size_sum);
+    if (ptr == -1){
+        return NULL;
+    }
+    free_block *block_n = (free_block *)ptr;
+    block_n->size = size;
+    block_n->next = NULL;
+
+    return (void *)block_n;
 }
 
 /**
